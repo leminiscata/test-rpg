@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh1cb77yapg1m"]
+
+[ext_resource type="Texture2D" uid="uid://d0bn7ar8o4bkk" path="res://assets/faces/giraffe.png" id="1_rqt4r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mqxs8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_rqt4r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_mqxs8")

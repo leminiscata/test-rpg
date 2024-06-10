@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://b887xd0wm1yle"]
+
+[ext_resource type="Script" path="res://GameManager.gd" id="1_53ab7"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_53ab7")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Container" type="Container" parent="Control"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 157.0
+offset_right = 115.0
+offset_bottom = 197.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Container"]
+layout_mode = 2
+
+[node name="L_Name" type="Label" parent="Control/Container/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name: "
+
+[node name="L_Level" type="Label" parent="Control/Container/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Level: "
+
+[node name="L_Health" type="Label" parent="Control/Container/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name: "
+
+[node name="L_Power" type="Label" parent="Control/Container/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Power: "
+
+[node name="L_Defense" type="Label" parent="Control/Container/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Defense: "
+
+[node name="B_Restart" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 933.0
+offset_top = 60.0
+offset_right = 1077.0
+offset_bottom = 91.0
+text = "Restart"
+
+[node name="C_Action" type="Container" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/C_Action"]
+layout_mode = 2
+
+[node name="B_Attack" type="Button" parent="Control/C_Action/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="Control/B_Restart" to="." method="_on_b_restart_pressed"]
+[connection signal="pressed" from="Control/C_Action/HBoxContainer/B_Attack" to="." method="_on_b_attack_pressed"]

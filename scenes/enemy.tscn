@@ -1,0 +1,154 @@
+[gd_scene load_steps=16 format=3 uid="uid://c41cuxefvylbm"]
+
+[ext_resource type="Texture2D" uid="uid://bnlc5olhj7yux" path="res://assets/faces/hippo.png" id="1_1nhkg"]
+[ext_resource type="Texture2D" uid="uid://dlrbywon80660" path="res://assets/faces/elephant.png" id="2_141sk"]
+[ext_resource type="Texture2D" uid="uid://dug4hxcnknuno" path="res://assets/faces/monkey.png" id="3_whg48"]
+[ext_resource type="Texture2D" uid="uid://fgv356y1wqkt" path="res://assets/faces/panda.png" id="4_mia22"]
+[ext_resource type="Texture2D" uid="uid://rtbmg4yu2mb7" path="res://assets/faces/parrot.png" id="5_i01jo"]
+[ext_resource type="Texture2D" uid="uid://dog1juie3kvi1" path="res://assets/faces/penguin.png" id="6_v8xip"]
+[ext_resource type="Texture2D" uid="uid://bjiywculvyf88" path="res://assets/faces/pig.png" id="7_f1uq6"]
+[ext_resource type="Texture2D" uid="uid://c8ujxm1sheulq" path="res://assets/faces/rabbit.png" id="8_60xmk"]
+[ext_resource type="Texture2D" uid="uid://cbq6kqy6x4xqc" path="res://assets/faces/snake.png" id="9_0r15h"]
+[ext_resource type="Texture2D" uid="uid://bfks7hw647sum" path="res://assets/hud_heartFull.png" id="10_re5fm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7gi3x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1nhkg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_141sk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_whg48")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mia22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_i01jo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_v8xip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f1uq6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_60xmk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0r15h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_vj0yr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CPUParticles2D_small:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CPUParticles2D_big:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_j5440"]
+resource_name = "attacked"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CPUParticles2D_big:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_fibs0"]
+resource_name = "hug"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CPUParticles2D_small:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_27cbo"]
+_data = {
+"RESET": SubResource("Animation_vj0yr"),
+"changeEnemy": SubResource("Animation_j5440"),
+"hugged": SubResource("Animation_fibs0")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_7gi3x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_27cbo")
+}
+
+[node name="CPUParticles2D_big" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 2.0
+one_shot = true
+speed_scale = 3.35
+fract_delta = false
+texture = ExtResource("10_re5fm")
+emission_shape = 1
+emission_sphere_radius = 128.0
+spread = 92.71
+gravity = Vector2(0, 40)
+radial_accel_min = 97.9
+radial_accel_max = 100.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color = Color(1, 0, 1, 0.729412)
+
+[node name="CPUParticles2D_small" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 2
+lifetime = 2.0
+one_shot = true
+speed_scale = 3.35
+fract_delta = false
+texture = ExtResource("10_re5fm")
+emission_shape = 1
+emission_sphere_radius = 128.0
+spread = 92.71
+gravity = Vector2(0, 40)
+radial_accel_min = 97.9
+radial_accel_max = 100.0
+scale_amount_min = 0.5
+color = Color(1, 0, 1, 0.729412)

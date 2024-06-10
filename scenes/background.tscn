@@ -1,0 +1,131 @@
+[gd_scene load_steps=11 format=3 uid="uid://d4bua7eqk5pri"]
+
+[ext_resource type="Texture2D" uid="uid://bcciad3srskwm" path="res://assets/background/cloud8.png" id="1_ra2c0"]
+[ext_resource type="Texture2D" uid="uid://bsh6ocnq58imm" path="res://assets/background/house_beige_side.png" id="2_tig6s"]
+[ext_resource type="Texture2D" uid="uid://i5pprdc883ev" path="res://assets/background/cloud1.png" id="4_mpjnx"]
+[ext_resource type="Texture2D" uid="uid://70t0nu7sg6la" path="res://assets/background/colored_grass.png" id="4_rr4p3"]
+
+[sub_resource type="Animation" id="Animation_xt1hn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_08tih"]
+resource_name = "move"
+length = 105.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 105),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-100, 300), Vector2(1300, 300)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_83n1i"]
+_data = {
+"RESET": SubResource("Animation_xt1hn"),
+"move": SubResource("Animation_08tih")
+}
+
+[sub_resource type="Animation" id="Animation_hnfwq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-100, 100)]
+}
+
+[sub_resource type="Animation" id="Animation_b3sog"]
+resource_name = "move"
+length = 150.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 150),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-100, 100), Vector2(1300, 100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l53x5"]
+_data = {
+"RESET": SubResource("Animation_hnfwq"),
+"move": SubResource("Animation_b3sog")
+}
+
+[node name="TileMap" type="Node2D"]
+z_index = -1
+
+[node name="HouseBeigeSide" type="Sprite2D" parent="."]
+position = Vector2(959, 533)
+scale = Vector2(2, 2)
+texture = ExtResource("2_tig6s")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="Control" type="Control" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+modulate = Color(1, 1, 1, 0.431373)
+visibility_layer = 512
+z_index = -3
+
+[node name="ColoredGrass" type="Sprite2D" parent="CanvasModulate"]
+z_index = -2
+position = Vector2(578, 345)
+scale = Vector2(1.12012, 1)
+texture = ExtResource("4_rr4p3")
+
+[node name="Cloud0" type="Sprite2D" parent="CanvasModulate"]
+texture = ExtResource("4_mpjnx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasModulate/Cloud0"]
+libraries = {
+"": SubResource("AnimationLibrary_83n1i")
+}
+autoplay = "move"
+
+[node name="Cloud1" type="Sprite2D" parent="CanvasModulate"]
+position = Vector2(-100, 100)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ra2c0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasModulate/Cloud1"]
+libraries = {
+"": SubResource("AnimationLibrary_l53x5")
+}
+autoplay = "move"

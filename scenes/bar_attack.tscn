@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxggy018sl4kn"]
+
+[ext_resource type="Gradient" uid="uid://c0u0lfink64dv" path="res://scenes/bar_attack.tres" id="1_0me1d"]
+[ext_resource type="Script" path="res://scripts/bar_attack.gd" id="1_ereq5"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cmykl"]
+gradient = ExtResource("1_0me1d")
+width = 400
+height = 50
+
+[sub_resource type="Gradient" id="Gradient_du1eq"]
+colors = PackedColorArray(1, 1, 1, 0.627451, 1, 1, 1, 0.627451)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0chto"]
+gradient = SubResource("Gradient_du1eq")
+width = 400
+height = 50
+use_hdr = true
+
+[node name="Bar_Attack" type="TextureProgressBar"]
+offset_left = 9.0
+offset_top = 1.0
+offset_right = 551.0
+offset_bottom = 68.0
+value = 10.0
+rounded = true
+texture_under = SubResource("GradientTexture2D_cmykl")
+texture_progress = SubResource("GradientTexture2D_0chto")
+script = ExtResource("1_ereq5")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1

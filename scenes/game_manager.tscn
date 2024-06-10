@@ -1,0 +1,512 @@
+[gd_scene load_steps=25 format=3 uid="uid://b887xd0wm1yle"]
+
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_eu2vj"]
+[ext_resource type="Texture2D" uid="uid://bvxreyerixmw7" path="res://assets/arrowLeft.png" id="2_lgmke"]
+[ext_resource type="PackedScene" uid="uid://bxggy018sl4kn" path="res://scenes/bar_attack.tscn" id="2_ono6o"]
+[ext_resource type="PackedScene" uid="uid://bh1cb77yapg1m" path="res://scenes/char.tscn" id="3_eyecg"]
+[ext_resource type="PackedScene" uid="uid://c41cuxefvylbm" path="res://scenes/enemy.tscn" id="4_hxmeq"]
+[ext_resource type="FontFile" uid="uid://cv2gkpqowvsgt" path="res://assets/fonts/Kenney Thick.ttf" id="5_01l7o"]
+[ext_resource type="PackedScene" uid="uid://d4bua7eqk5pri" path="res://scenes/background.tscn" id="5_gmfwb"]
+
+[sub_resource type="Animation" id="Animation_cefrq"]
+resource_name = "focus"
+length = 0.50001
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowLeft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(230, 24), Vector2(250, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArrowLeft:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_l20f7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowLeft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(230, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArrowLeft:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ae1hq"]
+_data = {
+"RESET": SubResource("Animation_l20f7"),
+"focus": SubResource("Animation_cefrq")
+}
+
+[sub_resource type="Animation" id="Animation_waum6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_et3kk"]
+resource_name = "region1"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.25, 1.25)]
+}
+
+[sub_resource type="Animation" id="Animation_01j2c"]
+resource_name = "region2"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1)]
+}
+
+[sub_resource type="Animation" id="Animation_8cwi6"]
+resource_name = "region3"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1)]
+}
+
+[sub_resource type="Animation" id="Animation_fmqp6"]
+resource_name = "region4"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 0.8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0e5a4"]
+_data = {
+"RESET": SubResource("Animation_waum6"),
+"region1": SubResource("Animation_et3kk"),
+"region2": SubResource("Animation_01j2c"),
+"region3": SubResource("Animation_8cwi6"),
+"region4": SubResource("Animation_fmqp6")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hf1a4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_poaiy"]
+font_color = Color(0, 0, 0, 1)
+outline_size = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_p62q1"]
+font_color = Color(0, 0, 0, 1)
+outline_size = 1
+
+[sub_resource type="Animation" id="Animation_5r1fx"]
+resource_name = "appear"
+length = 2.20001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.2, 2.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_lqgvf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tx61s"]
+_data = {
+"RESET": SubResource("Animation_lqgvf"),
+"appear": SubResource("Animation_5r1fx")
+}
+
+[sub_resource type="Animation" id="Animation_8td5u"]
+resource_name = "pop_up"
+length = 2.00001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [35, 80, 80, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o3464"]
+_data = {
+"pop_up": SubResource("Animation_8td5u")
+}
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_eu2vj")
+
+[node name="GameArea" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="C_Action" type="Container" parent="GameArea"]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 451.0
+offset_right = 258.0
+offset_bottom = 491.0
+metadata/_edit_group_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameArea/C_Action"]
+layout_mode = 2
+metadata/_edit_group_ = true
+
+[node name="B_Attack" type="Button" parent="GameArea/C_Action/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Hug the fren"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameArea/C_Action/HBoxContainer/B_Attack"]
+libraries = {
+"": SubResource("AnimationLibrary_ae1hq")
+}
+
+[node name="ArrowLeft" type="Sprite2D" parent="GameArea/C_Action/HBoxContainer/B_Attack"]
+visible = false
+position = Vector2(230, 24)
+texture = ExtResource("2_lgmke")
+
+[node name="Action_Bar" type="Control" parent="GameArea"]
+anchors_preset = 0
+offset_left = 304.0
+offset_top = 383.0
+offset_right = 304.0
+offset_bottom = 383.0
+
+[node name="Bar_Attack" parent="GameArea/Action_Bar" instance=ExtResource("2_ono6o")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -195.0
+offset_top = 193.0
+offset_right = 347.0
+offset_bottom = 260.0
+
+[node name="L_Bar_Result" type="RichTextLabel" parent="GameArea/Action_Bar"]
+unique_name_in_owner = true
+layout_direction = 2
+layout_mode = 0
+offset_left = -189.0
+offset_top = 134.0
+offset_right = 210.0
+offset_bottom = 192.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 40
+bbcode_enabled = true
+text = "[center]Hug Status[/center]"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="L_Bar_Result_Animator" type="AnimationPlayer" parent="GameArea/Action_Bar/L_Bar_Result"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_0e5a4")
+}
+
+[node name="Debug" type="Control" parent="GameArea"]
+layout_direction = 1
+anchors_preset = 0
+offset_left = 942.0
+offset_top = 16.0
+offset_right = 942.0
+offset_bottom = 16.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameArea/Debug"]
+material = SubResource("CanvasItemMaterial_hf1a4")
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_right = 143.0
+offset_bottom = 91.0
+grow_horizontal = 0
+alignment = 2
+metadata/_edit_group_ = true
+
+[node name="B_Restart" type="Button" parent="GameArea/Debug/VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="L_Progress" type="Label" parent="GameArea/Debug/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "prog"
+label_settings = SubResource("LabelSettings_poaiy")
+
+[node name="L_Hit" type="Label" parent="GameArea/Debug/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "damage"
+label_settings = SubResource("LabelSettings_poaiy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 58.0
+offset_top = 205.0
+offset_right = 897.0
+offset_bottom = 382.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="Info_Char" type="Control" parent="GameArea/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameArea/HBoxContainer/Info_Char"]
+layout_mode = 0
+offset_right = 58.0
+offset_bottom = 104.0
+
+[node name="L_Char_Name" type="Label" parent="GameArea/HBoxContainer/Info_Char/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name: "
+label_settings = SubResource("LabelSettings_p62q1")
+
+[node name="L_Char_Level" type="Label" parent="GameArea/HBoxContainer/Info_Char/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Level: "
+label_settings = SubResource("LabelSettings_p62q1")
+
+[node name="L_Char_Power" type="Label" parent="GameArea/HBoxContainer/Info_Char/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Power: "
+label_settings = SubResource("LabelSettings_p62q1")
+
+[node name="L_Char_Exp" type="Label" parent="GameArea/HBoxContainer/Info_Char/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "EXP: "
+label_settings = SubResource("LabelSettings_p62q1")
+
+[node name="Text_Char" type="Control" parent="GameArea/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+metadata/_edit_lock_ = true
+
+[node name="char" parent="GameArea/HBoxContainer/Text_Char" instance=ExtResource("3_eyecg")]
+scale = Vector2(0.8, 0.8)
+
+[node name="Text_Enemy" type="Control" parent="GameArea/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+metadata/_edit_lock_ = true
+
+[node name="enemy" parent="GameArea/HBoxContainer/Text_Enemy" instance=ExtResource("4_hxmeq")]
+unique_name_in_owner = true
+position = Vector2(0, 39)
+scale = Vector2(0.8, 0.8)
+frame = 4
+frame_progress = 0.641853
+
+[node name="Info_Enemy" type="Control" parent="GameArea/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_stretch_ratio = 0.75
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameArea/HBoxContainer/Info_Enemy"]
+layout_mode = 2
+
+[node name="L_Enemy_Name" type="Label" parent="GameArea/HBoxContainer/Info_Enemy/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name: "
+label_settings = SubResource("LabelSettings_poaiy")
+
+[node name="L_Enemy_Health" type="Label" parent="GameArea/HBoxContainer/Info_Enemy/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name: "
+label_settings = SubResource("LabelSettings_poaiy")
+
+[node name="L_Enemy_Defense" type="Label" parent="GameArea/HBoxContainer/Info_Enemy/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Defense: "
+label_settings = SubResource("LabelSettings_poaiy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameArea"]
+libraries = {
+"": SubResource("AnimationLibrary_tx61s")
+}
+
+[node name="TileMap" parent="." instance=ExtResource("5_gmfwb")]
+metadata/_edit_lock_ = true
+
+[node name="L_Announcement" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -564.0
+offset_top = -324.0
+offset_right = 577.0
+offset_bottom = 522.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_01l7o")
+theme_override_font_sizes/font_size = 35
+text = "Hug it out with
+Freya"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="L_Announcement"]
+libraries = {
+"": SubResource("AnimationLibrary_o3464")
+}
+
+[node name="Tutorial_Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="pressed" from="GameArea/C_Action/HBoxContainer/B_Attack" to="." method="_on_b_attack_pressed"]
+[connection signal="pressed" from="GameArea/Debug/VBoxContainer/B_Restart" to="." method="_on_b_restart_pressed"]
+[connection signal="timeout" from="Tutorial_Timer" to="." method="_on_tutorial_timer_timeout"]
